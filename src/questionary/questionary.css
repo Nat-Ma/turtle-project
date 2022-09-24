@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  width: 80vh;
+  height: 80vh;
+}
+
+.question{
+  border: 1px solid red;
+  width: 80%;
+  height: 20%;
+  align-self: center;
+  margin-top: 5%;
+}
+
+.answers{
+  margin-top: 5%;
+  border: 1px solid blue;
+  height: 50%;
+  width: 80%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.submit{
+  border: 1px solid gray;
+  width: 70%;
+  
+}
