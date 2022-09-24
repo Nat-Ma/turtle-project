@@ -1,5 +1,9 @@
 {
   "garbage": [
-    "/src/assets/imgs/bag.svg"
+    "/src/assets/imgs/bag.svg",
+    "/src/assets/imgs/bottle.svg",
+    "/src/assets/imgs/microplastic.svg",
+    "/src/assets/imgs/toothbrush.svg",
+    "/src/assets/imgs/wipes.svg"
   ]
 }

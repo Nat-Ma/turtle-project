@@ -1,6 +1,6 @@
 export default function Turty(props) {
   const styles = {
-    left: props.position[0],
+    left: props.position,
     width: props.width
   }
 
