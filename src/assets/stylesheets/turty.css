@@ -1,5 +1,7 @@
 .turty {
   position: absolute;
   bottom: 5%;
-  left: 50%;
+  left: calc(50% - 100px);
+  /* width: 11%; */
+  transition: 0.3s ease-in-out;
 }

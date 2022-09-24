@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Game from "/src/components/Game.jsx"
 
 export default function App() {
+
   return (
     <div className="App">
       <Game />
