@@ -1,6 +1,7 @@
 @import "turty.css";
 @import "game.css";
 @import "questionary.css";
+@import "garbage.css";
 
 :root {
   overflow-x: hidden !important;
