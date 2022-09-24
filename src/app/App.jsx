@@ -5,12 +5,13 @@ import Questionary from '../components/Questionary'
 // import Game from "/src/components/Game.jsx"
 
 export default function App() {
-  const [questionary, setQuestionary] = useState(true)
+  const [questionary, setQuestionary] = useState(false)
   // function endQuestionary() {
   // }
   return (
     <div className="App">
-      {/* <Questionary questionary={endQuestionary}/> */}
+      <Questionary />
+      {/* <Questionary questionary={endQuestionary} /> */}
       {questionary && <Game key="asdasdasd"/>}
     </div>
   )
