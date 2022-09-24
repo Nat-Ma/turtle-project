@@ -5,7 +5,7 @@ export default function Game() {
   //   positionX: 0, //set default position to middle of screen
   //   lifepoints: 10
   // })
-  window.addEventListener("keypress")
+  window.addEventListener("keypress", moveTurty)
   function moveTurty(e) {
     console.log(e)
   }
@@ -19,3 +19,5 @@ export default function Game() {
 
 // {garbageElements}
 // <Turty position={positionX}/>
+
+let Question ={Question1:"", Question2:""}

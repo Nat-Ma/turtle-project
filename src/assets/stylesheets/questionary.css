@@ -1,9 +1,16 @@
-.container {
+.container{
+  height: 100vh;
+}
+
+
+.container__questions {
   display: flex;
   flex-direction: column;
   border: 1px solid black;
   width: 80vh;
   height: 80vh;
+  align-items: center;
+  margin: auto;
 }
 
 .question{
@@ -12,7 +19,12 @@
   height: 20%;
   align-self: center;
   margin-top: 5%;
+  display: flex;
+  align-items: center;
+    justify-content: space-around;
+
 }
+
 
 .answers{
   margin-top: 5%;
@@ -29,5 +41,5 @@
 .submit{
   border: 1px solid gray;
   width: 70%;
-  
+
 }
