@@ -8,7 +8,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <Questionary />
+      {/* <Questionary /> */}
       <Game />
     </div>
   )

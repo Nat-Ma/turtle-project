@@ -11,10 +11,10 @@ export default function Game() {
   useEffect(() => {
     const handleKeyUp = (e) => {
       e.key === "ArrowRight" &&
-      turty.positionX + turty.col*2 < window.innerWidth &&
+      turty.positionX + turty.col*2 <= window.innerWidth &&
       setTurty((prev) => ({...prev, positionX: (turty.positionX + turty.col)})) ||
       e.key === "ArrowLeft" &&
-      turty.positionX > turty.col &&
+      turty.positionX >= turty.col &&
       setTurty((prev) => ({...prev, positionX: (turty.positionX - turty.col)}))
       };
     window.document.addEventListener('keyup', handleKeyUp);
