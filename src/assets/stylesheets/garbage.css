@@ -1,0 +1,6 @@
+.garbage {
+  position: absolute;
+  /* left: 0; */
+  top: 0;
+  transition: 1s;
+}
