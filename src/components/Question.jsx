@@ -3,13 +3,16 @@ import { useState } from 'react';
 
 export default function Question() {
 
-  
-  const [count, setCount] = useState(0);
+
+  const questions = ["question1","question2","question3"];
+  let i = 0;
+  const [index, setIndex] = useState(0);
 
   return (
     <div>
-    <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
+    <h2>{questions[index]}</h2>
+    
+      <button onClick={() => setIndex(index + 1)}>
     Click me
   </button>
   </div>
