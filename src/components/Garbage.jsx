@@ -2,7 +2,7 @@ export default function Garbage(props) {
   const styles = {
     left: props.position[0],
     width: props.width,
-    top: props.position[1]
+    top: props.position[1],
   }
 
   return (

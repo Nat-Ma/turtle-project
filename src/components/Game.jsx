@@ -3,6 +3,8 @@ import { useState, useEffect } from "react"
 import garbageData from "../assets/garbageData.json"
 import Garbage from "./Garbage"
 
+// TODO: add multiplier state that increases garbage items based on timer
+
 export default function Game() {
   const [turty, setTurty] = useState({
     col: window.innerWidth/11,
@@ -11,6 +13,7 @@ export default function Game() {
   })
 
   // const [timer, setTimer] = useState(30)
+  // const [multiplier, setMultiplier] = useState(1.0)
 
   const [garbage, setGarbage] = useState(totalGarbage())
 
@@ -39,32 +42,33 @@ export default function Game() {
     return () => {
       window.clearInterval(interval);
     }
-  })
-
-  console.log(garbage)
+  }, [garbage])
 
   function randomUrl() {
-    // garbageData.garbage.Math.floor(Math.random())
+    return garbageData.garbage[Math.floor(Math.random()* 5)]
   }
 
-  function randomX() {
+  function randomizeX() {
+    return Math.floor(Math.random() * window.innerWidth)
+  }
 
+  function randomizeY() {
+    return Math.floor(Math.random() * -2500)
   }
 
   function genGarbage(i) {
     return {
-      // src: {randomUrl},
       src: randomUrl(),
       id: i,
       key: i,
-      positionX: randomX(),
-      positionY: -100 // put off screen -y
+      positionX: randomizeX(),
+      positionY: randomizeY()
     }
   }
 
   function totalGarbage() {
     const garbageArr = []
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 2; i++) {
       garbageArr.push(genGarbage(i));
     }
     return garbageArr
