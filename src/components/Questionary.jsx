@@ -13,10 +13,10 @@ const Questionary = () => {
         <div className='question'>
           <Question index={index} />
         </div>
-        <ul className='answers'>
-          <Answer />
-        </ul>
-        <button className="submit"  onClick={() => {
+        <div className='answers'>
+          <Answer index={index}/>
+        </div>
+        <button className="submit" onClick={() => {
           setIndex(index + 1)
         }}>next question</button>
       </div>

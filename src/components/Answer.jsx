@@ -1,21 +1,10 @@
-import { useState } from 'react';
+export default function Answer(props) {
 
-
-export default function Answer() {
-
-
-  const answers = [<input type="text"></input>, <div>GOTHA</div>, <div>GOTHAAAAAAAAAAAAAA</div>];
-
-  let i = 0;
-  const [index, setIndex] = useState(0);
+  const answers = [<div> </div>, <div>GOTHA</div>, <div>GOTHAAAAAAAAAAAAAA</div>];
 
   return (
     <div>
-      <form>{answers[index]}</form>
-
-      <button onClick={() => setIndex(index + 1)}>
-        Click me
-      </button>
+      <h2>{answers[props.index]} index: {props.index}</h2>
     </div>
   )
 }

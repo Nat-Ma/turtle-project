@@ -1,8 +1,4 @@
-
-
-
 export default function Question(props) {
-
 
   const questions = ["How many plastic bottle/cups do you use daily?",
     "How many shopping bags do you get per day?",
@@ -14,7 +10,7 @@ export default function Question(props) {
 
   return (
     <div>
-      <h2>{questions[props.index]}</h2>
+      <h2>{questions[props.index]} index: {props.index}</h2>
     </div>
   )
 }
