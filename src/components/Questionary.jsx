@@ -8,7 +8,8 @@ const Questionary = () => {
   return (
     <div className='container'>
       <div className='container__questions'>
-
+        <div id="logo">
+        </div>
         <div className='question'>
           <Question index={index} />
         </div>
@@ -20,7 +21,7 @@ const Questionary = () => {
         </ul>
         <button className="submit"  onClick={() => {
           setIndex(index + 1)
-        }}>next question</button>
+          }}>next question</button>
       </div>
     </div>
   )
