@@ -11,7 +11,6 @@ const Questionary = () => {
           <Question />
         </div>
 
-
         <ul className='answers'>
           <li className='answer'>Answer Option 1</li>
           <li className='answer'>Answer Option 2</li>
@@ -20,10 +19,6 @@ const Questionary = () => {
         </ul>
 
         <button className="submit" ></button>
-
-
-
-
       </div>
     </div>
 

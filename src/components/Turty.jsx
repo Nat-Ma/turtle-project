@@ -1,8 +1,6 @@
-import { useState } from "react"
-
 export default function Turty(props) {
   const styles = {
-    left: props.position,
+    left: props.position[0],
     width: props.width
   }
 
