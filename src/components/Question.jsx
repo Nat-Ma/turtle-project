@@ -1,7 +1,7 @@
-import { useState } from 'react';
 
 
-export default function Question() {
+
+export default function Question(props) {
 
 
   const questions = ["How many plastic bottle/cups do you use daily?",
@@ -11,17 +11,10 @@ export default function Question() {
     "Do you use biodegradable cosmetics?",
     "How many takeaways in a week do you order on an average?",
     "Do you prefer synthetic clothing?"];
-    
-  let i = 0;
-  const [index, setIndex] = useState(0);
 
   return (
     <div>
-      <h2>{questions[index]}</h2>
-
-      <button onClick={() => setIndex(index + 1)}>
-        Click me
-      </button>
+      <h2>{questions[props.index]}</h2>
     </div>
   )
 }
