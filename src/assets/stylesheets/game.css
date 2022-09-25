@@ -8,11 +8,11 @@
 .game-over {
   background-color: white;
   width: 50%;
-  height: 20vh;
   position: absolute;
   left: 25%;
   top: 30vh;
   padding: 40px;
   border-radius: 10px;
   text-align: center;
+  box-sizing: border-box;
 }
