@@ -88,17 +88,22 @@ const Questionary = (props) => {
       ) : (
         <>
           <div className="container">
-            <div className='container__questions'>
-              <div id="logo"></div>
-              <div className='question-count'>
-                <span>Question {currentQuestion + 1}</span>/{questions.length}
+            <div className="container__flex">
+              <div className='container__logo'>
+                <div id="logo"></div>
               </div>
-              <div className='question-text question'>{questions[currentQuestion].questionText}</div>
+              <div className='container__questions'>
 
-              <div className='answer-section '>
-                {questions[currentQuestion].answerOptions.map((answerOption) => (
-                  <button className="answers" onClick={() => handleAnswerOptionClick(answerOption.points)}>{answerOption.answerText}</button>
-                ))}
+                <div className='question-count'>
+                  <span>Question {currentQuestion + 1}</span>/{questions.length}
+                </div>
+                <div className='question-text question'>{questions[currentQuestion].questionText}</div>
+
+                <div className='answer-section '>
+                  {questions[currentQuestion].answerOptions.map((answerOption) => (
+                    <button className="answers" onClick={() => handleAnswerOptionClick(answerOption.points)}>{answerOption.answerText}</button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
