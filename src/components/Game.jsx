@@ -16,6 +16,7 @@ export default function Game() {
   // const [multiplier, setMultiplier] = useState(1.0)
 
   const [garbage, setGarbage] = useState(totalGarbage())
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     const handleKeyUp = (e) => {
@@ -34,27 +35,29 @@ export default function Game() {
   }, [turty.positionX])
 
   useEffect(() => {
-    const moveRubbish = () => {
-      const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
-      setGarbage(updateRubbish);
-    }
-    const interval = window.setInterval(moveRubbish, 500);
-    garbage.some(trash => {
-      if (trash.positionY > 500 && trash.positionX === turty.positionX) {
-        console.log("AYYY")
+    if (!gameOver) {
+      const moveRubbish = () => {
+        const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
+        setGarbage(updateRubbish);
       }
-    })
 
-    // const gameOver = garbage.some(trash => {
-    //   if (trash.positionY === 500) {
-    //     console.log(trash.positionY)
-    //     console.log('YAAAAYY')
-    //   }
-    // })
+      const interval = window.setInterval(moveRubbish, 500);
 
-    return () => {
-      window.clearInterval(interval);
+      const turtyElement = document.querySelector('.turty');
+      const dead = garbage.some(trash => {
+        return trash.positionY > turtyElement.offsetTop &&
+          (trash.positionY < window.innerHeight) &&
+          (trash.positionX > turty.positionX) &&
+          (trash.positionX < turty.positionX + turty.col);
+      })
+      setGameOver(dead);
+
+      return () => {
+        window.clearInterval(interval);
+      }
+
     }
+
   }, [garbage])
 
   function randomUrl() {
@@ -81,7 +84,7 @@ export default function Game() {
 
   function totalGarbage() {
     const garbageArr = []
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 60; i++) {
       garbageArr.push(genGarbage(i));
     }
     return garbageArr
@@ -93,6 +96,11 @@ export default function Game() {
     <div className="game-environment">
       {garbageElements}
       <Turty position={turty.positionX} width={turty.col}/>
+      {gameOver &&
+        <div className="game-over">
+          <h1>You died!</h1>
+        </div>
+      }
     </div>
   )
 }
