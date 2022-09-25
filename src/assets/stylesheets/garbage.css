@@ -2,5 +2,5 @@
   position: absolute;
   /* left: 0; */
   top: 0;
-  transition: 1s;
+  transition: 1s ease-in;
 }

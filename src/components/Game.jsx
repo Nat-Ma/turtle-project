@@ -3,18 +3,15 @@ import { useState, useEffect } from "react"
 import garbageData from "../assets/garbageData.json"
 import Garbage from "./Garbage"
 
-// TODO: add multiplier state that increases garbage items based on timer
-
 export default function Game() {
   const [turty, setTurty] = useState({
     col: window.innerWidth/11,
     positionX: window.innerWidth/2 - (window.innerWidth/11/2),
-    lifepoints: 10,
+    lifepoints: 1,
   })
 
-  // const [timer, setTimer] = useState(30)
-  // const [multiplier, setMultiplier] = useState(1.0)
-
+  const [timer, setTimer] = useState(3)
+  const [multiplier, setMultiplier] = useState(1)
   const [garbage, setGarbage] = useState(totalGarbage())
 
   useEffect(() => {
@@ -25,7 +22,7 @@ export default function Game() {
       e.key === "ArrowLeft" &&
       turty.positionX >= turty.col &&
       setTurty((prev) => ({...prev, positionX: (turty.positionX - turty.col)}))
-      };
+    };
     window.document.addEventListener('keyup', handleKeyUp);
 
     return () => {
@@ -33,12 +30,18 @@ export default function Game() {
     }
   }, [turty.positionX])
 
+
   useEffect(() => {
     const moveRubbish = () => {
       const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
       setGarbage(updateRubbish);
+      setMultiplier(prev => prev*2)
+      setTimer(prev => prev + 1)
+      setGarbage(prev => ([...prev, genGarbage(timer)]))
     }
-    const interval = window.setInterval(moveRubbish, 500);
+    const interval = window.setInterval(moveRubbish, 1000);
+
+    console.log(garbage, multiplier)
     return () => {
       window.clearInterval(interval);
     }
@@ -53,7 +56,7 @@ export default function Game() {
   }
 
   function randomizeY() {
-    return Math.floor(Math.random() * -2500)
+    return Math.floor(Math.random() * -200)
   }
 
   function genGarbage(i) {
@@ -62,13 +65,25 @@ export default function Game() {
       id: i,
       key: i,
       positionX: randomizeX(),
-      positionY: randomizeY()
+      positionY: randomizeY() -100
     }
   }
 
-  function totalGarbage() {
+  // function moreGarbage(multiplier) {
+  //   for (let i = multiplier; i < multiplier; i++) {
+  //     return {
+  //       src: randomUrl(),
+  //       id: i,
+  //       key: i,
+  //       positionX: randomizeX(),
+  //       positionY: randomizeY()
+  //     }
+  //   }
+  // }
+
+  function totalGarbage(multiplier) {
     const garbageArr = []
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < multiplier; i++) {
       garbageArr.push(genGarbage(i));
     }
     return garbageArr
