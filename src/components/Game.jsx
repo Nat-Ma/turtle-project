@@ -39,6 +39,19 @@ export default function Game() {
       setGarbage(updateRubbish);
     }
     const interval = window.setInterval(moveRubbish, 500);
+    garbage.some(trash => {
+      if (trash.positionY > 500 && trash.positionX === turty.positionX) {
+        console.log("AYYY")
+      }
+    })
+
+    // const gameOver = garbage.some(trash => {
+    //   if (trash.positionY === 500) {
+    //     console.log(trash.positionY)
+    //     console.log('YAAAAYY')
+    //   }
+    // })
+
     return () => {
       window.clearInterval(interval);
     }
