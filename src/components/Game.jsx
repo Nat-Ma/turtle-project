@@ -65,7 +65,7 @@ export default function Game() {
   }
 
   function randomizeX() {
-    return Math.floor(Math.random() * window.innerWidth)
+    return Math.floor(Math.random() * 11) * turty.col;
   }
 
   function randomizeY() {
@@ -84,7 +84,7 @@ export default function Game() {
 
   function totalGarbage() {
     const garbageArr = []
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 100; i++) {
       garbageArr.push(genGarbage(i));
     }
     return garbageArr
