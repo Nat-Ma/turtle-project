@@ -7,7 +7,7 @@ import Questionary from '../components/Questionary'
 export default function App() {
   const [questionary, setQuestionary] = useState(true)
   function endQuestionary() {
-    
+
   }
   return (
     <div className="App">

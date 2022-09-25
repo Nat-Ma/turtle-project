@@ -1,5 +1,5 @@
 import { useState } from 'react';
-const Questionary2 = () => {
+const Questionary = () => {
   const questions = [
     {
       questionText: 'How many plastic bottle/cups do you use daily?',
@@ -86,16 +86,20 @@ const Questionary2 = () => {
         </div>
       ) : (
         <>
-          <div className='question-section'>
-            <div className='question-count'>
-              <span>Question {currentQuestion + 1}</span>/{questions.length}
+          <div className="container">
+            <div className='container__questions'>
+              <div id="logo"></div>
+              <div className='question-count'>
+                <span>Question {currentQuestion + 1}</span>/{questions.length}
+              </div>
+              <div className='question-text question'>{questions[currentQuestion].questionText}</div>
+
+              <div className='answer-section '>
+                {questions[currentQuestion].answerOptions.map((answerOption) => (
+                  <button className="answers" onClick={() => handleAnswerOptionClick(answerOption.points)}>{answerOption.answerText}</button>
+                ))}
+              </div>
             </div>
-            <div className='question-text'>{questions[currentQuestion].questionText}</div>
-          </div>
-          <div className='answer-section'>
-            {questions[currentQuestion].answerOptions.map((answerOption) => (
-              <button onClick={() => handleAnswerOptionClick(answerOption.points)}>{answerOption.answerText}</button>
-            ))}
           </div>
         </>
       )}
@@ -104,4 +108,4 @@ const Questionary2 = () => {
 }
 
 
-export default Questionary2
+export default Questionary
