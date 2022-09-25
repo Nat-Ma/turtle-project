@@ -47,8 +47,8 @@ export default function Game() {
       const dead = garbage.some(trash => {
         return trash.positionY > turtyElement.offsetTop &&
           (trash.positionY < window.innerHeight) &&
-          (trash.positionX > turty.positionX + 20) &&
-          (trash.positionX < turty.positionX + turty.col -20);
+          (trash.positionX + turty.col / 2 > turty.positionX + 30) &&
+          (trash.positionX + turty.col / 2 < turty.positionX + turty.col -30);
       })
       setGameOver(dead);
 
