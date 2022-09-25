@@ -2,6 +2,7 @@ import Turty from "/src/components/Turty";
 import { useState, useEffect } from "react"
 import garbageData from "../assets/garbageData.json"
 import Garbage from "./Garbage"
+import EndGame from "./EndGame"
 
 // TODO: add multiplier state that increases garbage items based on timer
 
@@ -96,11 +97,7 @@ export default function Game() {
     <div className="game-environment">
       {garbageElements}
       <Turty position={turty.positionX} width={turty.col}/>
-      {gameOver &&
-        <div className="game-over">
-          <h1>You died!</h1>
-        </div>
-      }
+      {gameOver && <EndGame gameover={gameOver}/> }
     </div>
   )
 }
