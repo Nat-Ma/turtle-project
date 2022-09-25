@@ -1,4 +1,4 @@
-.container{
+.container {
   height: 100vh;
 }
 
@@ -13,7 +13,7 @@
   margin: auto;
 }
 
-.question{
+.question {
   border: 1px solid red;
   width: 80%;
   height: 20%;
@@ -21,12 +21,12 @@
   margin-top: 5%;
   display: flex;
   align-items: center;
-    justify-content: space-around;
+  justify-content: space-around;
 
 }
 
 
-.answers{
+.answers {
   margin-top: 5%;
   border: 1px solid blue;
   height: 50%;
@@ -38,7 +38,7 @@
   align-items: flex-start;
 }
 
-.submit{
+.submit {
   border: 1px solid gray;
   width: 70%;
 
