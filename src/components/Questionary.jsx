@@ -1,5 +1,5 @@
 import { useState } from 'react';
-const Questionary = () => {
+const Questionary = (props) => {
   const questions = [
     {
       questionText: 'How many plastic bottle/cups do you use daily?',
@@ -76,6 +76,7 @@ const Questionary = () => {
       setCurrentQuestion(nextQuestion);
     } else {
       setStartGame(true);
+      props.setQuestionary(false)
     }
   };
   return (
