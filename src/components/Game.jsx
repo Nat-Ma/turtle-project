@@ -11,8 +11,9 @@ export default function Game() {
   })
 
   const [timer, setTimer] = useState(3)
+  const [counter, setCounter] = useState(1)
   const [multiplier, setMultiplier] = useState(1)
-  const [garbage, setGarbage] = useState(totalGarbage())
+  const [garbage, setGarbage] = useState([] || totalGarbage())
 
   useEffect(() => {
     const handleKeyUp = (e) => {
@@ -34,18 +35,23 @@ export default function Game() {
   useEffect(() => {
     const moveRubbish = () => {
       const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
-      setGarbage(updateRubbish);
-      setMultiplier(prev => prev*2)
+      setGarbage(updateRubbish)
+      setGarbage(prev => [...prev, totalGarbage().map(el => prev.push(el))]);
+      setMultiplier(prev => prev*1.05)
       setTimer(prev => prev + 1)
-      setGarbage(prev => ([...prev, genGarbage(timer)]))
-    }
+      setCounter(prev => prev + 1)
+      }
+
     const interval = window.setInterval(moveRubbish, 1000);
 
-    console.log(garbage, multiplier)
+    console.log("execute moveRubbish")
+
+    console.log(garbage, "multiplier", multiplier, "counter", counter)
     return () => {
       window.clearInterval(interval);
     }
   }, [garbage])
+
 
   function randomUrl() {
     return garbageData.garbage[Math.floor(Math.random()* 5)]
@@ -69,26 +75,15 @@ export default function Game() {
     }
   }
 
-  // function moreGarbage(multiplier) {
-  //   for (let i = multiplier; i < multiplier; i++) {
-  //     return {
-  //       src: randomUrl(),
-  //       id: i,
-  //       key: i,
-  //       positionX: randomizeX(),
-  //       positionY: randomizeY()
-  //     }
-  //   }
-  // }
-
-  function totalGarbage(multiplier) {
-    const garbageArr = []
-    for (let i = 0; i < multiplier; i++) {
-      garbageArr.push(genGarbage(i));
-    }
-    return garbageArr
+  function totalGarbage() {
+      const garbageArr = []
+      for (let i = 0; i < multiplier; i++) {
+        garbageArr.push(genGarbage(i));
+      }
+      return garbageArr
   }
 
+  // const garbageElements = garbage.map(gar => <Garbage id={gar.id} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
   const garbageElements = garbage.map(gar => <Garbage id={gar.id} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
 
   return (
