@@ -37,7 +37,7 @@ export default function Game() {
       const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
       setGarbage(updateRubbish)
       setGarbage(prev => [...prev, totalGarbage().map(el => prev.push(el))]);
-      setMultiplier(prev => prev*1.05)
+      setMultiplier(prev => prev*1.1)
       setTimer(prev => prev + 1)
       setCounter(prev => prev + 1)
       }
@@ -58,6 +58,7 @@ export default function Game() {
   }
 
   function randomizeX() {
+    // randomize a free column (an X position not already occupied)
     return Math.floor(Math.random() * window.innerWidth)
   }
 
@@ -77,7 +78,7 @@ export default function Game() {
 
   function totalGarbage() {
       const garbageArr = []
-      for (let i = 0; i < multiplier; i++) {
+      for (let i = 0; i < Math.floor(multiplier); i++) {
         garbageArr.push(genGarbage(i));
       }
       return garbageArr
