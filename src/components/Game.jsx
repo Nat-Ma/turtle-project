@@ -2,6 +2,7 @@ import Turty from "/src/components/Turty";
 import { useState, useEffect } from "react"
 import garbageData from "../assets/garbageData.json"
 import Garbage from "./Garbage"
+import EndGame from "./EndGame"
 
 export default function Game() {
   const [turty, setTurty] = useState({
@@ -14,6 +15,7 @@ export default function Game() {
   const [counter, setCounter] = useState(0)
   const [multiplier, setMultiplier] = useState(1)
   const [garbage, setGarbage] = useState([] || totalGarbage())
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     const handleKeyUp = (e) => {
@@ -33,21 +35,32 @@ export default function Game() {
 
 
   useEffect(() => {
-    const moveRubbish = () => {
-      const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
-      setGarbage(updateRubbish)
-      setGarbage(prev => [...prev, ...totalGarbage()]);
-      setMultiplier(prev => prev*1.1)
-      setTimer(prev => prev + 1)
+    if (!gameOver) {
+      const moveRubbish = () => {
+        const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
+        setGarbage(updateRubbish)
+        setGarbage(prev => [...prev, ...totalGarbage()]);
+        setMultiplier(prev => prev*1.1)
+        setTimer(prev => prev + 1)
+        }
+
+      const interval = window.setInterval(moveRubbish, 1000);
+
+      const turtyElement = document.querySelector('.turty');
+      const dead = garbage.some(trash => {
+        return trash.positionY > turtyElement.offsetTop &&
+          (trash.positionY < window.innerHeight) &&
+          (trash.positionX + turty.col / 2 > turty.positionX + 30) &&
+          (trash.positionX + turty.col / 2 < turty.positionX + turty.col -30);
+      })
+      setGameOver(dead);
+
+      console.log("execute moveRubbish")
+
+      console.log(garbage, "multiplier", multiplier, "counter", counter)
+      return () => {
+        window.clearInterval(interval);
       }
-
-    const interval = window.setInterval(moveRubbish, 1000);
-
-    console.log("execute moveRubbish")
-
-    console.log(garbage, "multiplier", multiplier, "counter", counter)
-    return () => {
-      window.clearInterval(interval);
     }
   }, [garbage])
 
@@ -93,6 +106,7 @@ export default function Game() {
     <div className="game-environment">
       {garbageElements}
       <Turty position={turty.positionX} width={turty.col}/>
+      {gameOver && <EndGame gameover={gameOver}/> }
     </div>
   )
 }
