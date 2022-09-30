@@ -4,19 +4,17 @@ import garbageData from "../assets/garbageData.json"
 import Garbage from "./Garbage"
 import EndGame from "./EndGame"
 
-// TODO: add multiplier state that increases garbage items based on timer
-
 export default function Game() {
   const [turty, setTurty] = useState({
     col: window.innerWidth/11,
     positionX: window.innerWidth/2 - (window.innerWidth/11/2),
-    lifepoints: 10,
+    lifepoints: 1,
   })
 
-  // const [timer, setTimer] = useState(30)
-  // const [multiplier, setMultiplier] = useState(1.0)
-
-  const [garbage, setGarbage] = useState(totalGarbage())
+  const [timer, setTimer] = useState(3)
+  const [counter, setCounter] = useState(0)
+  const [multiplier, setMultiplier] = useState(1)
+  const [garbage, setGarbage] = useState([] || totalGarbage())
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
@@ -27,7 +25,7 @@ export default function Game() {
       e.key === "ArrowLeft" &&
       turty.positionX >= turty.col &&
       setTurty((prev) => ({...prev, positionX: (turty.positionX - turty.col)}))
-      };
+    };
     window.document.addEventListener('keyup', handleKeyUp);
 
     return () => {
@@ -35,14 +33,18 @@ export default function Game() {
     }
   }, [turty.positionX])
 
+
   useEffect(() => {
     if (!gameOver) {
       const moveRubbish = () => {
         const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
-        setGarbage(updateRubbish);
-      }
+        setGarbage(updateRubbish)
+        setGarbage(prev => [...prev, ...totalGarbage()]);
+        setMultiplier(prev => prev*1.1)
+        setTimer(prev => prev + 1)
+        }
 
-      const interval = window.setInterval(moveRubbish, 500);
+      const interval = window.setInterval(moveRubbish, 1000);
 
       const turtyElement = document.querySelector('.turty');
       const dead = garbage.some(trash => {
@@ -53,45 +55,52 @@ export default function Game() {
       })
       setGameOver(dead);
 
+      console.log("execute moveRubbish")
+
+      console.log(garbage, "multiplier", multiplier, "counter", counter)
       return () => {
         window.clearInterval(interval);
       }
-
     }
-
   }, [garbage])
+
 
   function randomUrl() {
     return garbageData.garbage[Math.floor(Math.random()* 5)]
   }
 
   function randomizeX() {
+    // randomize a free column (an X position not already occupied)
+    // const occupied = garbage.some(element => element.positionX)
+    // console.log(occupied)
     return Math.floor(Math.random() * 11) * turty.col;
   }
 
-  function randomizeY() {
-    return Math.floor(Math.random() * -2500)
-  }
+  // function randomizeY() {
+  //   return Math.floor(Math.random() * -200)
+  // }
 
-  function genGarbage(i) {
+  function genGarbage() {
     return {
       src: randomUrl(),
-      id: i,
-      key: i,
+      id: counter,
+      key: counter,
       positionX: randomizeX(),
-      positionY: randomizeY()
+      positionY: -200
     }
   }
 
   function totalGarbage() {
-    const garbageArr = []
-    for (let i = 0; i < 100; i++) {
-      garbageArr.push(genGarbage(i));
-    }
-    return garbageArr
+      const garbageArr = []
+      for (let i = 0; i < Math.floor(multiplier); i++) {
+        setCounter(prev => prev +1)
+        garbageArr.push(genGarbage());
+      }
+      return garbageArr
   }
 
   const garbageElements = garbage.map(gar => <Garbage id={gar.id} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
+  // const garbageElements = garbage.map(gar => <Garbage id={gar.id} key={gar.key} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
 
   return (
     <div className="game-environment">
