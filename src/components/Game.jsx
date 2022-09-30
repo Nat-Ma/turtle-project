@@ -11,7 +11,7 @@ export default function Game() {
   })
 
   const [timer, setTimer] = useState(3)
-  const [counter, setCounter] = useState(1)
+  const [counter, setCounter] = useState(0)
   const [multiplier, setMultiplier] = useState(1)
   const [garbage, setGarbage] = useState([] || totalGarbage())
 
@@ -39,7 +39,6 @@ export default function Game() {
       setGarbage(prev => [...prev, ...totalGarbage()]);
       setMultiplier(prev => prev*1.1)
       setTimer(prev => prev + 1)
-      setCounter(prev => prev + 1)
       }
 
     const interval = window.setInterval(moveRubbish, 1000);
@@ -59,33 +58,36 @@ export default function Game() {
 
   function randomizeX() {
     // randomize a free column (an X position not already occupied)
-    return Math.floor(Math.random() * window.innerWidth)
+    // const occupied = garbage.some(element => element.positionX)
+    // console.log(occupied)
+    return Math.floor(Math.random() * 11) * turty.col;
   }
 
-  function randomizeY() {
-    return Math.floor(Math.random() * -200)
-  }
+  // function randomizeY() {
+  //   return Math.floor(Math.random() * -200)
+  // }
 
-  function genGarbage(i) {
+  function genGarbage() {
     return {
       src: randomUrl(),
-      id: i,
-      key: i,
+      id: counter,
+      key: counter,
       positionX: randomizeX(),
-      positionY: randomizeY() -100
+      positionY: -200
     }
   }
 
   function totalGarbage() {
       const garbageArr = []
       for (let i = 0; i < Math.floor(multiplier); i++) {
-        garbageArr.push(genGarbage(i));
+        setCounter(prev => prev +1)
+        garbageArr.push(genGarbage());
       }
       return garbageArr
   }
 
-  // const garbageElements = garbage.map(gar => <Garbage id={gar.id} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
   const garbageElements = garbage.map(gar => <Garbage id={gar.id} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
+  // const garbageElements = garbage.map(gar => <Garbage id={gar.id} key={gar.key} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
 
   return (
     <div className="game-environment">
