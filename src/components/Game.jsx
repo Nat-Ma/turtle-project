@@ -36,7 +36,7 @@ export default function Game() {
     const moveRubbish = () => {
       const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
       setGarbage(updateRubbish)
-      setGarbage(prev => [...prev, totalGarbage().map(el => prev.push(el))]);
+      setGarbage(prev => [...prev, ...totalGarbage()]);
       setMultiplier(prev => prev*1.1)
       setTimer(prev => prev + 1)
       setCounter(prev => prev + 1)
