@@ -1,5 +1,6 @@
 import Turty from "/src/components/Turty";
 import { useState, useEffect } from "react"
+import { nanoid } from 'nanoid'
 import garbageData from "../assets/garbageData.json"
 import Garbage from "./Garbage"
 import EndGame from "./EndGame"
@@ -43,8 +44,9 @@ export default function Game() {
   useEffect(() => {
     if (!gameOver) {
       const moveRubbish = () => {
-        const updateRubbish = garbage.map((prev, i) => (prev.positionY < window.innerHeight + 200) ? ({...prev, positionY: prev.positionY + 100}) : (garbage.splice(i, 1) && [...prev]))
+        const updateRubbish = garbage.map((prev, i) => (prev.positionY > window.innerHeight + 200) ? garbage.splice(i, 1) + [...prev] : ({...prev, positionY: prev.positionY + 100}))
         // const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
+        console.log("rubbish", updateRubbish)
         setGarbage(updateRubbish)
         setGarbage(prev => [...prev, ...totalGarbage()]);
         setMultiplier(prev => prev*1.1)
@@ -64,7 +66,7 @@ export default function Game() {
 
       console.log("execute moveRubbish")
 
-      console.log(garbage, "multiplier", multiplier, "counter", counter)
+      console.log(garbage, "multiplier", multiplier)
       return () => {
         window.clearInterval(interval);
       }
@@ -90,8 +92,7 @@ export default function Game() {
   function genGarbage() {
     return {
       src: randomUrl(),
-      id: counter,
-      key: counter,
+      key: nanoid(5),
       positionX: randomizeX(),
       positionY: -200
     }
@@ -100,14 +101,14 @@ export default function Game() {
   function totalGarbage() {
       const garbageArr = []
       for (let i = 0; i < Math.floor(multiplier); i++) {
-        setCounter(prev => prev +1)
+        // setCounter(prev => prev +1)
         garbageArr.push(genGarbage());
       }
       return garbageArr
   }
 
-  const garbageElements = garbage.map(gar => <Garbage id={gar.id} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
-  // const garbageElements = garbage.map(gar => <Garbage id={gar.id} key={gar.key} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
+  // const garbageElements = garbage.map(gar => <Garbage id={gar.id} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
+  const garbageElements = garbage.map(gar => <Garbage id={gar.key} key={gar.key} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
 
   return (
     <div className="game-environment">

@@ -10,8 +10,8 @@ export default function App() {
 
   return (
     <div className="App">
-      {questionary && <Questionary setQuestionary={setQuestionary} />}
-      {!questionary && <Game key="2193890"/>}
+      {questionary && <Questionary key="questionary" setQuestionary={setQuestionary} />}
+      {!questionary && <Game key="game"/>}
     </div>
   )
 }
