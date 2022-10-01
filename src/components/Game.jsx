@@ -1,5 +1,6 @@
 import Turty from "/src/components/Turty";
 import { useState, useEffect } from "react"
+import { nanoid } from 'nanoid'
 import garbageData from "../assets/garbageData.json"
 import Garbage from "./Garbage"
 import EndGame from "./EndGame"
@@ -33,11 +34,18 @@ export default function Game() {
     }
   }, [turty.positionX])
 
+  window.addEventListener("change", manageWaste())
+
+  function manageWaste() {
+    garbage.forEach((el, i) => (el.positionY > window.innerHeight + 200) && garbage.splice(i, 1))
+  }
 
   useEffect(() => {
     if (!gameOver) {
       const moveRubbish = () => {
+        // const updateRubbish = garbage.map((prev, i) => (prev.positionY > window.innerHeight + 200) ? garbage.splice(i, 1) && [...prev] : ({...prev, positionY: prev.positionY + 100}))
         const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
+        console.log("rubbish", updateRubbish)
         setGarbage(updateRubbish)
         setGarbage(prev => [...prev, ...totalGarbage()]);
         setMultiplier(prev => prev*1.1)
@@ -55,9 +63,7 @@ export default function Game() {
       })
       setGameOver(dead);
 
-      console.log("execute moveRubbish")
-
-      console.log(garbage, "multiplier", multiplier, "counter", counter)
+      console.log(garbage, "multiplier", multiplier)
       return () => {
         window.clearInterval(interval);
       }
@@ -71,20 +77,13 @@ export default function Game() {
 
   function randomizeX() {
     // randomize a free column (an X position not already occupied)
-    // const occupied = garbage.some(element => element.positionX)
-    // console.log(occupied)
     return Math.floor(Math.random() * 11) * turty.col;
   }
-
-  // function randomizeY() {
-  //   return Math.floor(Math.random() * -200)
-  // }
 
   function genGarbage() {
     return {
       src: randomUrl(),
-      id: counter,
-      key: counter,
+      key: nanoid(5),
       positionX: randomizeX(),
       positionY: -200
     }
@@ -93,14 +92,12 @@ export default function Game() {
   function totalGarbage() {
       const garbageArr = []
       for (let i = 0; i < Math.floor(multiplier); i++) {
-        setCounter(prev => prev +1)
         garbageArr.push(genGarbage());
       }
       return garbageArr
   }
 
-  const garbageElements = garbage.map(gar => <Garbage id={gar.id} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
-  // const garbageElements = garbage.map(gar => <Garbage id={gar.id} key={gar.key} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
+  const garbageElements = garbage.map(gar => <Garbage id={gar.key} key={gar.key} url={gar.src} position={[gar.positionX, gar.positionY]} width={turty.col}/>)
 
   return (
     <div className="game-environment">
