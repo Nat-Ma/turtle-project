@@ -34,10 +34,17 @@ export default function Game() {
   }, [turty.positionX])
 
 
+  // garbage.map((prev, index) => {
+  //   (prev.positionY > window.innerHeight + 200) ? garbage.splice(index, 1) : ({...prev, positionY: prev.positionY + 100})
+  // })
+
+
+
   useEffect(() => {
     if (!gameOver) {
       const moveRubbish = () => {
-        const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
+        const updateRubbish = garbage.map((prev, i) => (prev.positionY < window.innerHeight + 200) ? ({...prev, positionY: prev.positionY + 100}) : (garbage.splice(i, 1) && [...prev]))
+        // const updateRubbish = garbage.map(prev => ({...prev, positionY: prev.positionY + 100}));
         setGarbage(updateRubbish)
         setGarbage(prev => [...prev, ...totalGarbage()]);
         setMultiplier(prev => prev*1.1)

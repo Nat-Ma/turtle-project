@@ -6,6 +6,6 @@ export default function Garbage(props) {
   }
 
   return (
-    <img className="garbage" style={styles} src={props.url} alt="porcodio" />
+    <img className="garbage" style={styles} src={props.url} alt="garbage_pic" />
   )
 }
