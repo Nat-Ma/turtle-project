@@ -10,3 +10,5 @@ First version built in < 24 hours.
 
 Features added:
   - incremental garbage generation
+  - removes garbage off screen
+  - adds unique key generator
